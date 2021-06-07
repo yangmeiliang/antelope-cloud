@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: antelope-eureka
+  profiles:
+    active: 8761
+logging:
+  level:
+    root: info
+    com.antelope: debug
+discovery-eureka-host: localhost
+---
+spring:
+  profiles: 8761
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: discovery-eureka-1
+    non-secure-port: ${server.port}
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${discovery-eureka-host}:8762/eureka/,http://${discovery-eureka-host}:8763/eureka/
+---
+spring:
+  profiles: 8762
+server:
+  port: 8762
+eureka:
+  instance:
+    hostname: discovery-eureka-2
+    non-secure-port: ${server.port}
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${discovery-eureka-host}:8761/eureka/,http://${discovery-eureka-host}:8763/eureka/
+---
+spring:
+  profiles: 8763
+server:
+  port: 8763
+eureka:
+  instance:
+    hostname: discovery-eureka-3
+    non-secure-port: ${server.port}
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${discovery-eureka-host}:8761/eureka/,http://${discovery-eureka-host}:8762/eureka/

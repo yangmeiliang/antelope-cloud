@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "discovery-eureka-host",
+      "type": "java.lang.String",
+      "description": "Description for discovery-eureka-host."
+  }
+] }
